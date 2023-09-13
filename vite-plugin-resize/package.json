@@ -1,0 +1,23 @@
+{
+  "name": "vite-plugin-resize",
+  "version": "1.0.0",
+  "description": "",
+  "main": "/src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/generator": "^7.22.15",
+    "@babel/parser": "^7.22.16",
+    "@babel/traverse": "^7.22.17",
+    "@babel/types": "^7.22.17",
+    "source-map": "^0.7.4",
+    "unplugin": "^1.4.0"
+  },
+  "devDependencies": {
+    "vite": "^4.4.9"
+  }
+}
