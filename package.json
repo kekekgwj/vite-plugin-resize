@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-resize",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Vite plugin for local development. Set the token as local Cookie returned from SSO login.",
   "main": "./dist/index.js",
   "source": "./src/index.ts",

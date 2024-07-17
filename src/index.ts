@@ -42,7 +42,7 @@ const h = ${originHeight};
 const defaultStyle = {
   width: w + "px",
   height: h + "px",
-  transform: "scale(1) translate(-50%, 0)",
+  transform: "scale(1)",
 };
 import { useRef, useCallback } from 'react';
 
@@ -78,48 +78,44 @@ const ResizeApp = () => {
     },
   );
   _useEffect(() => {
-    run();
-    window.addEventListener("resize", run);
+    debouncedFn();
+    window.addEventListener("resize", debouncedFn);
     return () => {
-      window.removeEventListener("resize", run);
+      window.removeEventListener("resize", debouncedFn);
     };
   }, []);
 
-  function getScale() {
-    const adapter = document.getElementById("adapter");
-    if (!adapter) return 1;
-
-    const sw = adapter.offsetWidth / parseInt(w);
-    const sh = adapter.offsetHeight / parseInt(h);
-
-    return sw < sh ? sw : sh;
-  }
   function getStyleWithScale() {
+    const clientWidth = document.documentElement.clientWidth;
+    const clientHeight = document.documentElement.clientHeight;
+    const sw = clientWidth / parseInt(w);
+    const sh = clientHeight / parseInt(h);
+    let scale = 1
+    let targetHeight = h, targetWidth = w;
+
+    if (clientWidth / clientHeight < w / h) {
+      scale = sw;
+      targetHeight = parseInt(clientHeight / scale) + "px";
+    } else {
+      scale = sh;
+      targetWidth = parseInt(clientWidth / scale) + "px";
+    } 
     return {
       ...defaultStyle,
-      transform: \`scale(\${getScale()}) translate(-50%, 0)\`,
+      width: targetWidth,
+      height: targetHeight,
+      transform: \`scale(\${scale})\`,
     };
   }
 
   return (
-    <div 
-      id="adapter" 
-      style={{
-        width: "100vw",
-        height: "100vh",
-        position: "relative",
-    }}>
       <div 
         style={{
           transformOrigin: '0 0',
-          position: 'absolute',
-          left: '50%',
           ...scale
 			}}>
-        {JSON.stringify(scale)}
         <${exportDefaultName}/>
       </div>
-    </div>
   );
 };
 export default ResizeApp;
